@@ -36,7 +36,7 @@ class RecursoController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Recurso::find(),
+            'query' => Recurso::find(), //->year(2014),
         ]);
 
         return $this->render('index', [

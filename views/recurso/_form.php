@@ -16,10 +16,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'fornecedor')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'aquisicao')->textInput() ?>
+    <?= $form->field($model, 'aquisicao')->textInput(['type'=>'date']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Salvar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

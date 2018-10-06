@@ -14,20 +14,40 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Usuario', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Novo', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'nome',
-            'email:email',
-            'senha',
+            //'email:text',
+            [
+                'label' => 'Email do Usu',
+                'attribute' => 'email',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return '<a href="mailto:'.$model->email.'">'.$model->email.'</a>';
+                }
+            ],
+            [
+                'attribute' => 'senha',
+                'visible' => \Yii::$app->user->identity->isAdmin(),
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
+            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{view}{outro}',
+                'contentOptions' => ['style' => 'width: 20px'],
+                'buttons'=>[
+                    'outro'=>function ($url, $model) {
+                        $t = 'index.php?r=site/view&id='.$model->id;
+                        return Html::button('<span class="glyphicon glyphicon-eye-open"></span>', ['value'=>$t, 'class' => 'btn btn-default btn-xs custom_button']);
+                    },
+                ],
+            ],
+            
+            ],
     ]); ?>
 </div>

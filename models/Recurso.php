@@ -11,6 +11,7 @@ use Yii;
  * @property string $nome
  * @property string $fornecedor
  * @property string $aquisicao
+ * @property int $usuario_id
  *
  * @property Movimentacoes[] $movimentacoes
  */
@@ -30,8 +31,9 @@ class Recurso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'fornecedor', 'aquisicao'], 'required'],
+            [['nome', 'fornecedor', 'aquisicao', 'usuario_id'], 'required'],
             [['aquisicao'], 'safe'],
+            [['usuario_id'], 'integer'],
             [['nome', 'fornecedor'], 'string', 'max' => 500],
         ];
     }
@@ -45,14 +47,36 @@ class Recurso extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nome' => 'Nome',
             'fornecedor' => 'Fornecedor',
-            'aquisicao' => 'Data de Aquisição',
+            'aquisicao' => 'Aquisicao',
+            'usuario_id' => 'Usuário',
         ];
+    }
+    
+    public static function find()
+    {
+        return new RecursoQuery(get_called_class());
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getResponsavel()
+    {
+        return $this->hasOne(Usuario::className(), ['id' => 'usuario_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getMovimentacoes()
+    {
+        return $this->hasMany(Movimentacao::className(), ['recurso_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsuario()
     {
         return $this->hasMany(Movimentacao::className(), ['recurso_id' => 'id']);
     }

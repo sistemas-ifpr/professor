@@ -45,7 +45,7 @@ AppAsset::register($this);
                      '<li class="divider"></li>',
                      ['label' => 'Locais', 'url' => ['/local/index']],
                      ['label' => 'Recursos', 'url' => ['/recurso/index']],
-                ],
+                ], 'visible' => !Yii::$app->user->isGuest,
             ],
         ],
     ]);
@@ -61,7 +61,7 @@ AppAsset::register($this);
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Logout (' . Yii::$app->user->identity->nome . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
