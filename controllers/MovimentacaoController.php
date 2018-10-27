@@ -26,6 +26,16 @@ class MovimentacaoController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['index', 'update', 'delete'],
+                'rules' => [
+                    // deny all POST requests
+                    [
+                        'allow' => false,
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -67,7 +77,7 @@ class MovimentacaoController extends Controller
         $model = new Movimentacao();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['recurso/view', 'id' => $model->recurso_id]);
         }
 
         return $this->render('create', [

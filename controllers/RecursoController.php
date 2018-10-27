@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Recurso;
+use app\models\Movimentacao;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -52,8 +53,17 @@ class RecursoController extends Controller
      */
     public function actionView($id)
     {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Movimentacao::find()->where(['recurso_id' => $id])
+                            ->orderBy(['data'=>SORT_DESC]),
+            'pagination' => [
+                'pageSize' => 5,
+            ],
+        ]);
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'dataProvider' => $dataProvider,
         ]);
     }
 

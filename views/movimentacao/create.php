@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Movimentacao */
 
-$this->title = 'Create Movimentacao';
-$this->params['breadcrumbs'][] = ['label' => 'Movimentacaos', 'url' => ['index']];
+$this->title = 'Nova Movimentação';
+$this->params['breadcrumbs'][] = 'Movimentações';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="movimentacao-create">

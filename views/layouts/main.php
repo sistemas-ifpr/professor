@@ -39,12 +39,14 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-left'],
         'items' => [
             [
-                'label' => 'Manutenção',
+                'label' => 'ManutenÃ§Ã£o',
                 'items' => [
-                     ['label' => 'Usuários', 'url' => ['/usuario/index']],
+                     ['label' => 'UsuÃ¡rios', 'url' => ['/usuario/index']],
                      '<li class="divider"></li>',
                      ['label' => 'Locais', 'url' => ['/local/index']],
                      ['label' => 'Recursos', 'url' => ['/recurso/index']],
+                     '<li class="divider"></li>',
+                     ['label' => 'Movimentar', 'url' => ['/movimentacao/create']],
                 ], 'visible' => !Yii::$app->user->isGuest,
             ],
         ],

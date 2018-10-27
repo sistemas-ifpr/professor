@@ -31,7 +31,7 @@ class Recurso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'fornecedor', 'aquisicao', 'usuario_id'], 'required'],
+            [['nome', 'fornecedor', 'aquisicao'], 'required'],
             [['aquisicao'], 'safe'],
             [['usuario_id'], 'integer'],
             [['nome', 'fornecedor'], 'string', 'max' => 500],
@@ -79,5 +79,13 @@ class Recurso extends \yii\db\ActiveRecord
     public function getUsuario()
     {
         return $this->hasMany(Movimentacao::className(), ['recurso_id' => 'id']);
+    }
+    
+    public function beforeSave($options = array()) {
+        if ($this->isNewRecord) {
+            $this->usuario_id = \Yii::$app->user->identity->id; 
+        }
+
+        return parent::beforeSave($options);
     }
 }

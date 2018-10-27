@@ -7,32 +7,37 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Movimentacao */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Movimentacaos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Movimentações';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="movimentacao-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <h1><?= Html::encode($model->recurso->nome . " >> " . $model->local->nome) ?></h1>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'recurso_id',
-            'local_id',
-            'usuario_id',
+            [
+                'attribute' => 'recurso_id',
+                'value' => function ($model) {
+                    return $model->recurso->nome;
+                }
+            ],
+            [
+                'attribute' => 'local_id',
+                'value' => function ($model) {
+                    return $model->local->nome;
+                }
+            ],
+            [
+                'attribute' => 'usuario_id',
+                'value' => function ($model) {
+                    return $model->usuario->nome;
+                }
+            ],
             'data',
+            'comentario:ntext',
         ],
     ]) ?>
 
